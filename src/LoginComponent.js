@@ -41,7 +41,7 @@ export class LoginComponent extends React.Component {
 
     if( emailStatus.valid  && passwordStatus.valid) {
 
-    axios.post('/login', { 
+    axios.post('/api/login', { 
       params:
         {
           email,

@@ -33,7 +33,7 @@ export class ForgotComponent extends React.Component {
 
     if(emailStatus.valid)
     {
-      axios.post('/forgot', { 
+      axios.post('/api/forgot', { 
         params:
           {
             email

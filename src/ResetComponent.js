@@ -30,7 +30,7 @@ export class ResetComponent extends React.Component {
   
 componentDidMount() {
 
-  axios.post('/resettokencheck', {
+  axios.post('/api/resettokencheck', {
         params: {
           resetPasswordToken: this.props.match.params.token,
         },
@@ -57,7 +57,7 @@ componentDidMount() {
     const passMatchStatus = passMatchValidator(password, passconfirm, passMatch);
    if(passwordStatus.valid && passMatchStatus.valid)
    {
-       axios.post('/resetform', { 
+       axios.post('/api/resetform', { 
          params:
            {
              password, resetPasswordToken: this.props.match.params.token,

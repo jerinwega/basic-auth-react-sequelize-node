@@ -41,7 +41,7 @@ app.get('/*', (req, res) => {
 
 
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     const { email } = req.body.params;
     const { password } = req.body.params;
   
@@ -115,7 +115,7 @@ app.post('/api/db/register', (req, res) => {
 
 
 
-app.post('/forgot', (req, res) => {
+app.post('/api/forgot', (req, res) => {
     const { email } = req.body.params;
       db.User.findOne({
         attributes: ['id', 'email', 'password','resetPasswordToken'],
@@ -179,7 +179,7 @@ app.post('/forgot', (req, res) => {
 
 
 
-app.post('/resettokencheck', (req, res) => {
+app.post('/api/resettokencheck', (req, res) => {
 
 db.User.findOne({
     attributes: ['email', 'resetPasswordToken'],
@@ -211,7 +211,7 @@ db.User.findOne({
 
 
 
-app.post('/resetform', (req, res, next) => {
+app.post('/api/resetform', (req, res, next) => {
     
     const { password } = req.body.params;
    
