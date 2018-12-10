@@ -1,0 +1,257 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto');
+h1{
+    font-family: 'Lato', sans-serif !important;
+  
+   font-weight: bold;
+  
+}
+
+
+input:focus {
+    outline:none !important;
+    border: solid #39be99 1px !important;
+}
+
+
+body{
+    background-color:#272733;
+}
+
+.visible {
+ height: 50px !important;
+ margin-top: 35px !important;
+ border-top-left-radius: 0 !important;
+ border-top-right-radius: 0 !important;
+
+}
+
+.visibleL {
+    height: 49px !important;
+    margin-top: 20px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+   
+   }
+
+.format {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+ 
+}
+
+.size{
+    width: 550px;
+    height:468px;
+    background-color:white;
+    
+}
+.sizeR{
+    width: 550px;
+    height:640px;
+    background-color:white;
+}
+.size2{
+    width: 500px;
+    height:327px;
+    background-color:white;
+
+}
+.size3{
+    width: 500px;
+    height:430px;
+    background-color:white;
+
+}
+.passvalid{
+    color: #39be99;
+}
+.passv{
+    color: black;
+}
+.passf{
+    font-size: 25px !important;
+    
+    
+}
+
+.passf::-webkit-input-placeholder { /* WebKit browsers */
+    font-size:15px;
+  }
+  
+  .passf:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-size:15px;
+  }
+  
+  .passf::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-size:15px;
+  }
+  
+  .passf:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-size:15px;
+  }
+small {
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 175px;
+   
+}
+.csmall{
+    
+    margin-left: 150px !important;
+}
+.err{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 80px;
+}
+.err2{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 60px;
+}
+.al{
+    margin-left: -20px;
+    margin-top: -2px;
+     
+}
+.sty{
+    color: #333 !important;
+    margin-top: 40px !important;  
+
+}
+
+.align{
+font-family: 'Montserrat', sans-serif;
+font-weight: bold;
+margin-left: 75px;
+margin-top: 40px;
+width : 400px !important;
+height: 50px !important;
+
+
+height: 35px;
+
+background-color: rgba(87, 85, 85, 0.219);
+
+}
+
+
+.w3-btn{
+
+   
+    /* border: solid #333 1px; */
+    background-color: #39be99 !important;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: bold !important;
+   width:150px !important;
+ 
+    margin-left: 90px !important;
+    margin-top:30px !important;
+    cursor: pointer !important;
+    transition: .5s !important;
+
+}
+.w3-btn:hover{
+    
+    color: greenyellow !important;
+    background-color: #333 !important;
+
+}
+.link_move{
+    
+  
+    margin-left: 70px !important;
+  
+}
+
+.l_move{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-top: 20px !important;
+    font-size: 13px;
+    color: black;
+    margin-left: 215px;
+    transition: .5s;
+    
+}
+.l_move:hover{
+    color:blue !important;
+}
+.lin{
+    text-decoration: none;
+}
+.copyright{
+   font-family: 'Montserrat', sans-serif;
+   font-size: 13px;
+}
+
+
+
+.btn_move2{
+    
+    margin-left: 105px !important;
+    margin-top: 45px !important;
+    
+
+}
+
+
+.link_move2{
+  
+    margin-left: 45px !important;
+    margin-top: 45px !important;
+}
+
+
+.align2{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-left: 55px;
+    margin-top: 40px;
+    width : 400px !important;
+    height: 45px !important;
+    color: black !important;
+    
+    height: 35px;
+    
+    background-color: rgba(87, 85, 85, 0.349);
+    
+    }
+
+.align3{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-top: 40px;
+    width : 400px !important;
+    height: 45px !important;
+
+    
+    height: 35px;
+    
+    background-color: rgba(87, 85, 85, 0.349);
+}
+
+.btn_move3{
+
+    margin-left: 79px !important;
+    margin-top:41px !important;
+   
+}
+
+
+
+.link_move3{
+   
+    margin-left: 50px !important;
+    margin-top:41px !important;
+
+}
+.link_move3:hover{
+   
+    color: greenyellow;
+    background-color: #333;
+   
+
+}
