@@ -1,5 +1,6 @@
 const express = require('express');
 const Sequelize = require('sequelize');
+var cors = require('cors');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
@@ -16,7 +17,7 @@ require('dotenv').config();
 app.use(express.static(`${__dirname}/www`));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors())
 app.use(bodyParser.json());
 
 app.use(webpackDevMiddleware(compiler, {
