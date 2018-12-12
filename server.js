@@ -40,39 +40,40 @@ app.get('/*', (req, res) => {
 
 
 
-
 app.post('/api/login', (req, res) => {
     const { email } = req.body.params;
     const { password } = req.body.params;
   
 
       db.User.findOne({
-          attributes: ['email', 'password'],
+          attributes: ['email', 'password', 'name'],
           where: {
               email        
           }
       })
           .then(results=> {
-
+           
           if (results && results.email === email) {
   
               bcrypt.compare(password, results.password, function (err, result) {
                   if (result === true)
                   {
-                  res.send({ message: 'Access Granted ', status: true });
+                  res.send({name: results.name, message: 'Access Granted ', status: true });
                   } else {
-                      res.send({ message: 'Access Denied ', status: false });
+                      res.send({ message: 'Incorrect Email or Password', status: false });
                   }
                 }) 
             }  
           
           if (!results) {
-              res.send({ message: 'Access Denied ', status: false });
+              res.send({ message: 'Incorrect Email or Password ', status: false });
           }
           
       }).catch(e=>console.log(e));
   });
   
+
+
 
 
 
@@ -99,12 +100,14 @@ app.post('/api/db/register', (req, res) => {
                 email,
                 password: hash,
             }).then((response) => {
-                res.send({ response, message: 'Registered Successfully', status: true });
+                res.send({name: response.name, message: 'Registered Successfully', status: true });
                 console.log('User created');
             });
         }
     });
 });
+
+
 
 
 
@@ -147,7 +150,7 @@ app.post('/api/forgot', (req, res) => {
     text:
       `You are receiving this because you have requested the reset of the password for your account.\n\n` +
       `Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n` +
-      `http://localhost:3000/reset/${token}\n\n` +
+      `http://54.209.97.241:3000/reset/${token}\n\n` +
       `If you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
 
@@ -169,6 +172,8 @@ app.post('/api/forgot', (req, res) => {
 }).catch (e=>console.log(e))
    
 });
+
+
 
 
 
@@ -211,6 +216,8 @@ db.User.findOne({
 
 
 
+
+
 app.post('/api/resetform', (req, res, next) => {
     
     const { password } = req.body.params;
@@ -222,7 +229,7 @@ app.post('/api/resetform', (req, res, next) => {
         },
     }).then(result => {
         if (result) {
-            console.log(result);
+            // console.log(result);
         console.log('user exists in db');
         bcrypt.hash(password, 8)
             .then(hashedPassword => {
@@ -242,6 +249,8 @@ app.post('/api/resetform', (req, res, next) => {
         }
     });
     });
+
+
 
 
 

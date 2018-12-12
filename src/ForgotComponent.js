@@ -8,16 +8,20 @@ export class ForgotComponent extends React.Component {
     this.state = {
       email: '',
       errors: {},
-      
+      changes:'',
+      message:''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+ 
+
   handleChange(e) {
      const {errors = {}} =this.state;
      errors[e.target.name] = "";
-     this.setState({exists: ''});
-     this.setState({status: false});
+     this.setState({changes : ""});
+     this.setState({message : ""});
      this.setState({ [e.target.name]: e.target.value,
      errors 
     });
@@ -39,7 +43,19 @@ export class ForgotComponent extends React.Component {
             email
           }
       })
-      .then(response=> this.setState({ exists: response.data.message, status: response.data.status}))
+      .then(response=> {
+
+        if (response.data.message && response.data.status === true) {
+
+         
+          this.setState({ email: "", message: response.data.message, changes :"w3-panel w3-green w3-round-xlarge visibleL" })
+       }
+       else if (response.data.message && response.data.status === false) {
+         this.setState({  message: response.data.message, changes:"w3-panel w3-red w3-round-xlarge visibleL" }) 
+       }
+         
+         
+         })
       .catch(e=>console.log(e));
 
     }
@@ -51,16 +67,10 @@ else {
 
 
   render() {
-    const { exists, status, email, errors = {} } = this.state;
+    const {  email, errors = {} } = this.state;
 
-    let changes = '';
-    if (exists && status === true) {
-
-       changes = "w3-panel w3-green w3-round-xlarge visibleL";
-    }
-    else if (exists && status == false) {
-      changes = "w3-panel w3-red w3-round-xlarge visibleL";
-    }
+    let { changes, message } = this.state;
+  
 
     return (<div>
       <div class="w3-container w3-content w3-display-middle ">
@@ -85,7 +95,7 @@ else {
 
             </div>
             <div className= {changes} >
-                  <p className="w3-center format">{exists}</p>
+                  <p className="w3-center format">{message}</p>
               </div>
 
 

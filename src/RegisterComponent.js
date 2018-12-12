@@ -15,28 +15,32 @@ export class RegisterComponent extends React.Component {
       passconfirm: '',
       errors: {},
       passMatch: false,
-      exists: '',
-      status: false
+      changes: '',
+      message:''
       
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.redirect = this.redirect.bind(this);
   }
 
 
   handleChange(e) {
     const { errors = {} } = this.state;
     errors[e.target.name]="";
-    this.setState({exists: ''});
-    this.setState({status: false});
+    this.setState({changes : ""});
+    this.setState({message : ""});
     this.setState({passMatch : false});
     this.setState({ [e.target.name]: e.target.value });
   
   }
-
+  
   handleSubmit(e) {  
-
+    
+   
     e.preventDefault();
+
+    
     
     let { name, email, passMatch, password, passconfirm, errors = {} } = this.state;
 
@@ -56,9 +60,21 @@ export class RegisterComponent extends React.Component {
             password,
           }
       })
-      .then(response=> {console.log(response); this.setState({ exists: response.data.message, status: response.data.status, passMatch: passMatchStatus.passMatch})})
-      .catch(e=>console.log(e));
+      .then(response=> {
+        if (response.data.message && response.data.status === true) {
+
+          const red = this; 
+         red.props.history.push('/welcome?name=' + response.data.name);
+          this.setState({  passMatch: passMatchStatus.passMatch, name: "", email: "", password: "",passconfirm: ""})
+       }
+       else if (response.data.message && response.data.status === false) {
+         this.setState({  passMatch: passMatchStatus.passMatch,  message: response.data.message, changes:"w3-panel w3-red w3-round-xlarge visible" }) 
+       }
       
+      
+      })
+      .catch(e=>console.log(e));
+     
     } else {
       errors.email = emailStatus.errors.email; 
       errors.password = passwordStatus.errors.password;
@@ -69,15 +85,8 @@ export class RegisterComponent extends React.Component {
     
 
   render() {
-    const {status, exists, name, email, password, passMatch, passconfirm, errors= {} } = this.state;
-    let changes = '';
-    if (exists && status === true) {
-
-       changes = "w3-panel w3-green w3-round-xlarge visible";
-    }
-    else if (exists && status == false) {
-      changes = "w3-panel w3-red w3-round-xlarge visible";
-    }
+    const { name, email, password, passMatch, passconfirm, errors= {} } = this.state;
+    let { changes, message } = this.state;
    
     return (
        <div>
@@ -118,7 +127,7 @@ export class RegisterComponent extends React.Component {
               
 
               <div className= {changes} >
-                  <p className="w3-center format">{exists}</p>
+                  <p className="w3-center format">{message}</p>
               </div>
 
 

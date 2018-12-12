@@ -10,7 +10,9 @@ export class ResetComponent extends React.Component {
       passconfirm: '',
       errors: {},
       passMatch: false,
-      tokenStatus: true
+      tokenStatus: true,
+      changes: '',
+      message:''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,13 +21,13 @@ export class ResetComponent extends React.Component {
   handleChange(e) {
     const { errors = {} } = this.state;
     errors[e.target.name]="";
-    this.setState({exists: ''});
-    this.setState({status: false});
     this.setState({passMatch : false});
-    
+    this.setState({changes : ""});
+    this.setState({message : ""});
     this.setState({ [e.target.name]: e.target.value });
   
   }
+
 
   
 componentDidMount() {
@@ -63,7 +65,17 @@ componentDidMount() {
              password, resetPasswordToken: this.props.match.params.token,
            }
        })
-       .then(response=> {console.log(response); console.log(response.data.status); this.setState({ exists: response.data.message, status: response.data.status, passMatch: passMatchStatus.passMatch})})
+       .then(response=> {
+        if (response.data.message && response.data.status === true) {
+
+          const red = this; 
+          red.props.history.push('/login');
+          this.setState({  password: "", passconfirm: "",  passMatch: passMatchStatus.passMatch, })
+       }
+       else if (response.data.message && response.data.status === false) {
+         this.setState({  password: "", passconfirm: "", message: response.data.message,  passMatch: passMatchStatus.passMatch, changes:"w3-panel w3-red w3-round-xlarge visibleL" }) 
+       }
+      }) 
        .catch(e=>console.log(e));
        
      } else {
@@ -76,16 +88,9 @@ componentDidMount() {
 
 
   render() {
-    const { exists, status, password, passMatch, passconfirm, errors= {}, tokenStatus } = this.state;
-    
-    let changes = '';
-    if (exists && status === true) {
-
-       changes = "w3-panel w3-green w3-round-xlarge visibleL";
-    }
-    else if (exists && status == false) {
-      changes = "w3-panel w3-red w3-round-xlarge visibleL";
-    }
+    const { password, passMatch, passconfirm, errors= {}, tokenStatus } = this.state;
+    let {changes, message } =this.state; 
+  
 
     if (tokenStatus === true) 
     {
@@ -122,7 +127,7 @@ componentDidMount() {
 
             </div>
             <div className= {changes} >
-                  <p className="w3-center format">{exists}</p>
+                  <p className="w3-center format">{message}</p>
               </div>
 
 

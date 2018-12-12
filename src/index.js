@@ -4,6 +4,8 @@ import { LoginComponent } from './LoginComponent';
 import { RegisterComponent } from './RegisterComponent';
 import { ForgotComponent } from './ForgotComponent';
 import { ResetComponent } from './ResetComponent';
+import { WelcomeComponent } from './WelcomeComponent';
+
 
 
 
@@ -13,7 +15,9 @@ export class App extends React.Component {
  return(
  
    <Switch>
+      
     <Route exact path = "/"  render={() => <Redirect to="/login" />} />
+    <Route path = "/welcome" component={WelcomeComponent} />
     <Route  path ="/login" component={LoginComponent} />
     <Route  path ="/register" component={RegisterComponent} />
     <Route  path ="/forgot" component={ForgotComponent} />
@@ -22,6 +26,5 @@ export class App extends React.Component {
      );
    }
   }
-    
 
  export default withRouter(App);

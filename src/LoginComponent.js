@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { emailValidator } from './helpers/emailValidator.js'
 import { passwordValidator } from './helpers/passwordValidator.js';
 import Axios from 'axios';
+
+import { withRouter } from "react-router-dom";
 export class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -10,8 +12,8 @@ export class LoginComponent extends React.Component {
       email: '',
       password: '',
       errors:{},
-      exists:'',
-      status:false
+      changes: '',
+      message:''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,10 +21,10 @@ export class LoginComponent extends React.Component {
 
   handleChange(e) {
 
-    var { errors={}} = this.state;
+    var { errors={}} = this.state; 
     errors[e.target.name]="";
-    this.setState({exists: ''});
-    this.setState({status: false});
+    this.setState({changes : ""});
+    this.setState({message : ""});
     this.setState({ [e.target.name]: e.target.value,
     errors 
     });
@@ -40,7 +42,7 @@ export class LoginComponent extends React.Component {
 
 
     if( emailStatus.valid  && passwordStatus.valid) {
-
+      
     axios.post('/api/login', { 
       params:
         {
@@ -48,7 +50,20 @@ export class LoginComponent extends React.Component {
           password,
         }
     })
-    .then(response=> this.setState({ exists: response.data.message, status: response.data.status}))
+    .then(response=> {
+    // console.log(response.data);
+    if (response.data.message && response.data.status === true) {
+
+       const red = this; 
+       red.props.history.push('/welcome?name=' + response.data.name);
+       this.setState({ email: "", password: "" })
+    }
+    else if (response.data.message && response.data.status === false) {
+      this.setState({ message: response.data.message, changes:"w3-panel w3-red w3-round-xlarge visibleL" }) 
+    }
+      
+      
+      })
     .catch(e=>console.log(e));
   } else {
     errors.email = emailStatus.errors.email; 
@@ -56,23 +71,14 @@ export class LoginComponent extends React.Component {
     this.setState({ errors });
   }
   
-  }
-
-    
+}
     
             
   render() {
-    const {exists, status, email, password, errors = {} } = this.state;
-
-    let changes = '';
-    if (exists && status === true) {
-
-       changes = "w3-panel w3-green w3-round-xlarge visibleL";
-    }
-    else if (exists && status == false) {
-      changes = "w3-panel w3-red w3-round-xlarge visibleL";
-    }
-
+    
+    const { email, password, errors = {} } = this.state;
+    let { changes, message } = this.state;
+    
     return (<div>
       <div class="w3-container w3-content w3-display-middle ">
         <div class="sw3-panel w3-card w3-display-container w3-display-middle w3-round-xlarge size">
@@ -81,7 +87,7 @@ export class LoginComponent extends React.Component {
 
 
 
-          <form name="form" onSubmit={this.handleSubmit}>
+          <form name="form"  onSubmit={this.handleSubmit}>
             <div>
              
               <input type="text"  className="w3-input w3-border w3-round-large align" name="email" value={email} onChange={this.handleChange} placeholder="Email" />  
@@ -107,7 +113,7 @@ export class LoginComponent extends React.Component {
             </div>
 
             <div className= {changes} >
-                  <p className="w3-center format">{exists}</p>
+                  <p className="w3-center format">{message}</p>
               </div>
 
           </form>
@@ -127,3 +133,6 @@ export class LoginComponent extends React.Component {
     </div>);
   }
 }
+
+
+export default withRouter(LoginComponent)

@@ -8,6 +8,19 @@ h1{
   
 }
 
+.overridecss{
+    margin-left: 83% !important;
+    margin-top: -5px !important;
+}
+.overridecss .w3-btn {
+    color: black !important;
+    background-color: white !important;
+ 
+}
+.overridecss .w3-btn:hover {
+    color: white !important;
+    background-color: #39be99 !important;
+}
 
 input:focus {
     outline:none !important;
@@ -41,6 +54,11 @@ body{
  
 }
 
+.wsize{
+    width: 550px;
+    height:100px;
+    background-color:white;
+}
 .size{
     width: 550px;
     height:468px;
@@ -113,6 +131,10 @@ small {
     margin-left: -20px;
     margin-top: -2px;
      
+}
+.wsty{
+    color: #333 !important;
+    margin-top: 25px !important;  
 }
 .sty{
     color: #333 !important;
